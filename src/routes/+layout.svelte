@@ -7,7 +7,7 @@
 	<meta name="title" content="DocLabeler - Easy-to-use solution for NLP-driven document labeling" />
 	<meta
 		name="description"
-		content="Elevate your document labeling with DocLabler's user-friendly interface. Experience the power of NLP-driven tagging and organization on a simple, responsive platform."
+		content="Elevate your document labeling with DocLabeler's user-friendly interface. Experience the power of NLP-driven tagging and organization on a simple, responsive platform."
 	/>
 	<meta name="author" content="Michael Belete" />
 </svelte:head>
