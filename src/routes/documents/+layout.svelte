@@ -1,4 +1,4 @@
-<div class="bg-gray-200 overflow-x-hidden w-screen h-screen">
+<div class="bg-gray-200">
 	<header class="bg-white shadow-sm lg:static lg:overflow-y-visible">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="relative flex justify-between lg:gap-8 xl:grid xl:grid-cols-12">
@@ -45,7 +45,9 @@
 		</div>
 	</header>
 
-	<main class="min-h-fit sm:min-h-[calc(100vh-188px)]">
+	<main
+		class="min-h-fit sm:min-h-[calc(100vh-188px)] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 sm:py-10 py-8"
+	>
 		<slot />
 	</main>
 
