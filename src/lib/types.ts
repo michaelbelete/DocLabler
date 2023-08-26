@@ -4,3 +4,6 @@ export type Document = {
 	body: string;
 	url: string;
 };
+
+export type DocumentsView = 'grid' | 'list';
+export type DocumentsSort = 'asc' | 'desc';

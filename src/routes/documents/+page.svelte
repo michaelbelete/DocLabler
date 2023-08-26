@@ -5,14 +5,44 @@
 	import ListIcon from '$lib/icons/ListIcon.svelte';
 	import ZaIcon from '$lib/icons/ZaIcon.svelte';
 	import { sortByTitleAToZ, sortByTitleZToA } from '$lib/sort';
+	import { userPreference } from '$lib/stores/user-preference';
 	import type { PageData } from './$types';
+
 	export let data: PageData;
 
-	let view: 'grid' | 'list' = 'grid';
-	let sort: 'asc' | 'desc' = 'asc';
+	$: view = $userPreference.view;
+	$: sort = $userPreference.sort;
 
 	$: sortedDocuments =
 		sort === 'asc' ? data.documents.sort(sortByTitleAToZ) : data.documents.sort(sortByTitleZToA);
+
+	const toggleSort = () => {
+		if ($userPreference.sort === 'asc') {
+			userPreference.set({
+				...$userPreference,
+				sort: 'desc'
+			});
+		} else {
+			userPreference.set({
+				...$userPreference,
+				sort: 'asc'
+			});
+		}
+	};
+
+	const toggleView = () => {
+		if ($userPreference.view === 'list') {
+			userPreference.set({
+				...$userPreference,
+				view: 'grid'
+			});
+		} else {
+			userPreference.set({
+				...$userPreference,
+				view: 'list'
+			});
+		}
+	};
 </script>
 
 <div class="flex flex-col gap-8">
@@ -24,17 +54,11 @@
 			<!-- Change layout between list and grid view -->
 			<div class="hidden sm:flex items-center">
 				{#if view === 'grid'}
-					<button
-						class="hover:bg-gray-300 p-2 rounded-full duration-200"
-						on:click={() => (view = 'list')}
-					>
+					<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleView}>
 						<GridIcon />
 					</button>
 				{:else}
-					<button
-						class="hover:bg-gray-300 p-2 rounded-full duration-200"
-						on:click={() => (view = 'grid')}
-					>
+					<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleView}>
 						<ListIcon />
 					</button>
 				{/if}
@@ -42,17 +66,11 @@
 			<!-- Sort Button -->
 
 			{#if sort === 'asc'}
-				<button
-					class="hover:bg-gray-300 p-2 rounded-full duration-200"
-					on:click={() => (sort = 'desc')}
-				>
+				<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleSort}>
 					<ZaIcon />
 				</button>
 			{:else}
-				<button
-					class="hover:bg-gray-300 p-2 rounded-full duration-200"
-					on:click={() => (sort = 'asc')}
-				>
+				<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleSort}>
 					<AzIcon />
 				</button>
 			{/if}
