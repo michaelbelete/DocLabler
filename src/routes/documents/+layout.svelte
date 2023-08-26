@@ -33,7 +33,7 @@
 								<input
 									id="search"
 									name="search"
-									class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-dark ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-primary sm:text-lg sm:leading-6"
+									class="block w-full rounded-md border-0 bg-white py-3 pl-10 pr-3 text-dark ring-1 ring-inset ring-gray-300 placeholder:text-gray-500 focus:ring-2 focus:ring-primary sm:text-lg sm:leading-6"
 									placeholder="Search"
 									type="search"
 								/>

@@ -47,7 +47,7 @@
 
 <div class="flex flex-col gap-8">
 	<section class="flex justify-between sm:flex-row flex-col gap-4 items-center">
-		<h1 class="font-semibold md:text-3xl text-xl text-center sm:text-left">
+		<h1 class="font-semibold md:text-3xl text-2xl text-center sm:text-left">
 			Select a document to label
 		</h1>
 		<div class="flex gap-1 items-center">
