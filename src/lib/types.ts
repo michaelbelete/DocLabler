@@ -20,6 +20,6 @@ export type LabelInput = {
 };
 
 export type Response<T> = {
-	data: T;
+	data?: T;
 	message: string;
 };
