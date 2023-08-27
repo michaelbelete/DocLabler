@@ -36,7 +36,7 @@
 			</a>
 		</nav>
 		<nav class="hidden sm:flex" aria-label="Breadcrumb">
-			<ol role="list" class="flex items-center space-x-4">
+			<ol role="list" class="flex items-center space-x-2">
 				<li>
 					<div class="flex">
 						<a href="/documents" class="text-sm font-medium text-gray-500 hover:text-gray-700"
@@ -70,6 +70,7 @@
 			<div class="min-w-0 flex-1">
 				<h2
 					class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
+					title={document.title}
 				>
 					{document.title}
 				</h2>
@@ -83,14 +84,16 @@
 	<div class="bg-white rounded-md shadow-md py-6 px-6">
 		<p>{document.body}</p>
 	</div>
-	<div class="bg-white bottom-0 w-full py-8 rounded-t-md shadow-sm">
+	<div class="bg-white bottom-0 w-full py-8 px-4 rounded-t-md shadow-sm">
 		<form class="max-w-xl mx-auto flex flex-col gap-4" method="post" on:submit={handleSubmit}>
 			<div>
-				<div class="flex justify-between">
-					<label for="label" class="block text-lg font-medium leading-6 text-gray-900">Label</label>
+				<div class="flex flex-row justify-between">
+					<label for="label" class="block text-sm sm:text-lg font-medium leading-6 text-gray-900"
+						>Label</label
+					>
 					<button
 						type="button"
-						class="text-lg flex gap-2 items-center leading-6 text-primary hover:underline underline-offset-2 hover:brightness-110"
+						class="text-sm sm:text-lg flex gap-2 items-center leading-6 text-primary hover:underline underline-offset-2 hover:brightness-110"
 						><SparkIcon /> Suggest me a label</button
 					>
 				</div>
@@ -99,7 +102,7 @@
 						type="label"
 						name="label"
 						id="label"
-						class="block w-full rounded-md border-0 py-3 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary sm:text-lg sm:leading-6"
+						class="block w-full rounded-md border-0 py-3 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary text-sm sm:text-lg sm:leading-6"
 						placeholder="What will you label this document?"
 						required
 					/>
