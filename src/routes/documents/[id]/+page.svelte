@@ -81,7 +81,7 @@
 				toasts.success({
 					title: 'Success',
 					description: responseData.message,
-					placement: 'top-right'
+					placement: 'top-center'
 				});
 
 				if (responseData.data?.label) {
@@ -116,7 +116,7 @@
 				class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700"
 			>
 				<svg
-					class="-ml-1 mr-1 h-5 w-5 flex-shrink-0 text-gray-400"
+					class="flex-shrink-0 w-5 h-5 mr-1 -ml-1 text-gray-400"
 					viewBox="0 0 20 20"
 					fill="currentColor"
 					aria-hidden="true"
@@ -142,7 +142,7 @@
 				<li>
 					<div class="flex items-center">
 						<svg
-							class="h-5 w-5 flex-shrink-0 text-gray-400"
+							class="flex-shrink-0 w-5 h-5 text-gray-400"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 							aria-hidden="true"
@@ -162,7 +162,7 @@
 			</ol>
 		</nav>
 		<div class="mt-2 md:flex md:items-center md:justify-between">
-			<div class="min-w-0 flex-1">
+			<div class="flex-1 min-w-0">
 				<h2
 					class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
 					title={document.title}
@@ -170,25 +170,25 @@
 					{document.title}
 				</h2>
 			</div>
-			<div class="mt-4 flex flex-shrink-0 md:ml-4 md:mt-0">
+			<div class="flex flex-shrink-0 mt-4 md:ml-4 md:mt-0">
 				<a href={document.url} class="btn-primary" target="_blank">View Detail</a>
 			</div>
 		</div>
 	</div>
 
-	<div class="bg-white rounded-md shadow-md py-6 px-6">
+	<div class="px-6 py-6 bg-white rounded-md shadow-md">
 		<p>{document.body}</p>
 	</div>
-	<div class="bg-white bottom-0 w-full py-8 px-4 rounded-t-md shadow-sm">
-		<div class="max-w-xl mx-auto flex flex-col gap-4">
+	<div class="bottom-0 w-full px-4 py-8 bg-white shadow-sm rounded-t-md">
+		<div class="flex flex-col max-w-xl gap-4 mx-auto">
 			<div>
 				<div class="flex flex-row justify-between">
-					<label for="label" class="block text-sm sm:text-lg font-medium leading-6 text-gray-900"
+					<label for="label" class="block text-sm font-medium leading-6 text-gray-900 sm:text-lg"
 						>Label</label
 					>
 					<button
 						type="button"
-						class="text-sm sm:text-lg flex gap-2 items-center leading-6 text-primary hover:underline underline-offset-2 hover:brightness-110"
+						class="flex items-center gap-2 text-sm leading-6 sm:text-lg text-primary hover:underline underline-offset-2 hover:brightness-110"
 						on:click={suggestLabel}><SparkIcon /> Suggest me a label</button
 					>
 				</div>
@@ -198,7 +198,7 @@
 						name="label"
 						id="label"
 						bind:value={label}
-						class="block w-full rounded-md border-0 py-3 px-3 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-primary text-sm sm:text-lg sm:leading-6"
+						class="block w-full px-3 py-3 text-sm text-gray-900 border-0 rounded-md shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-primary sm:text-lg sm:leading-6"
 						class:ring-primary={error}
 						class:ring-2={error}
 						placeholder="What will you label this document?"
@@ -206,7 +206,7 @@
 					/>
 				</div>
 				{#if error}
-					<p class="text-sm text-red-600 mt-1">{error}</p>
+					<p class="mt-1 text-sm text-red-600">{error}</p>
 				{/if}
 			</div>
 			<button
