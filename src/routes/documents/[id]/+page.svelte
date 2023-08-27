@@ -38,8 +38,8 @@
 			} else {
 				error = 'Unexpected Error Occured. Please try again';
 			}
-		} catch (error) {
-			error = `Unexpected Error Occured. Please try again. Detail: ${error}`;
+		} catch (e) {
+			error = `Unexpected Error Occured. Please try again. Detail: ${e}`;
 		}
 
 		isLoading = false;
@@ -83,8 +83,8 @@
 			} else {
 				error = 'Unexpected Error Occured. Please try again';
 			}
-		} catch (error) {
-			error = `Unexpected Error Occured. Please try again. Detail: ${error}`;
+		} catch (e) {
+			error = `Unexpected Error Occured. Please try again. Detail: ${e}`;
 		}
 
 		isLoading = false;
