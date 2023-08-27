@@ -1,10 +1,11 @@
 <script lang="ts">
 	import SparkIcon from '$lib/icons/SparkIcon.svelte';
-	import { visitorId } from '$lib/stores/visitorId';
+	import { visitorId } from '$lib/stores/visitor-id';
 	import type { GetLabelInput, LabelInput, Response } from '$lib/types';
 	import type { Label } from '@prisma/client';
 	import type { PageData } from './$types';
 	import { toasts } from 'svelte-toasts';
+	import { suggestRandomWord } from '$lib/suggest-label';
 
 	export let data: PageData;
 
@@ -34,7 +35,10 @@
 			if (response.ok) {
 				// Handle success if needed
 				const responseData: Response<Label> = await response.json();
-				label = responseData.data.label;
+
+				if (responseData.data?.label) {
+					label = responseData.data.label;
+				}
 			} else {
 				error = 'Unexpected Error Occured. Please try again';
 			}
@@ -79,7 +83,10 @@
 					description: responseData.message,
 					placement: 'top-right'
 				});
-				label = responseData.data.label;
+
+				if (responseData.data?.label) {
+					label = responseData.data.label;
+				}
 			} else {
 				error = 'Unexpected Error Occured. Please try again';
 			}
@@ -88,6 +95,12 @@
 		}
 
 		isLoading = false;
+	};
+
+	const suggestLabel = () => {
+		const suggestedLabel = suggestRandomWord(document.title, document.body);
+
+		label = suggestedLabel;
 	};
 
 	$: if ($visitorId) {
@@ -176,7 +189,7 @@
 					<button
 						type="button"
 						class="text-sm sm:text-lg flex gap-2 items-center leading-6 text-primary hover:underline underline-offset-2 hover:brightness-110"
-						><SparkIcon /> Suggest me a label</button
+						on:click={suggestLabel}><SparkIcon /> Suggest me a label</button
 					>
 				</div>
 				<div class="mt-2">
