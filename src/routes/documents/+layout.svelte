@@ -11,7 +11,7 @@
 			<div class="relative flex justify-between lg:gap-8 xl:grid xl:grid-cols-12">
 				<div class="flex md:absolute md:inset-y-0 md:left-0 lg:static xl:col-span-2">
 					<div class="flex items-center flex-shrink-0">
-						<a href="/">
+						<a href="/documents">
 							<img class="w-auto h-11" src="/images/logo.svg" alt="DocLabeler" />
 						</a>
 					</div>

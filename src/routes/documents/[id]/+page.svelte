@@ -214,8 +214,7 @@
 				class="btn-primary disabled:brightness-75"
 				class:animate-pulse={isLoading}
 				on:click={handleUpsertLabel}
-				disabled={isLoading}
-				>{#if isLoading} Submitting {:else} Submit {/if}</button
+				disabled={isLoading}>Submit</button
 			>
 		</div>
 	</div>

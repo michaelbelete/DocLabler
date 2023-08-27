@@ -46,19 +46,19 @@
 </script>
 
 <div class="flex flex-col gap-8">
-	<section class="flex justify-between sm:flex-row flex-col gap-4 items-center">
-		<h1 class="font-semibold md:text-3xl text-2xl text-center sm:text-left">
+	<section class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+		<h1 class="text-2xl font-semibold text-center md:text-3xl sm:text-left">
 			Select a document to label
 		</h1>
-		<div class="flex gap-1 items-center">
+		<div class="flex items-center gap-1">
 			<!-- Change layout between list and grid view -->
-			<div class="hidden sm:flex items-center">
+			<div class="items-center hidden sm:flex">
 				{#if view === 'grid'}
-					<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleView}>
+					<button class="p-2 duration-200 rounded-full hover:bg-gray-300" on:click={toggleView}>
 						<GridIcon />
 					</button>
 				{:else}
-					<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleView}>
+					<button class="p-2 duration-200 rounded-full hover:bg-gray-300" on:click={toggleView}>
 						<ListIcon />
 					</button>
 				{/if}
@@ -66,11 +66,11 @@
 			<!-- Sort Button -->
 
 			{#if sort === 'asc'}
-				<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleSort}>
+				<button class="p-2 duration-200 rounded-full hover:bg-gray-300" on:click={toggleSort}>
 					<ZaIcon />
 				</button>
 			{:else}
-				<button class="hover:bg-gray-300 p-2 rounded-full duration-200" on:click={toggleSort}>
+				<button class="p-2 duration-200 rounded-full hover:bg-gray-300" on:click={toggleSort}>
 					<AzIcon />
 				</button>
 			{/if}
@@ -78,28 +78,32 @@
 	</section>
 
 	<section class:list-container={view === 'list'} class:grid-container={view === 'grid'}>
-		{#each sortedDocuments as document}
-			<a
-				href="/documents/{document.id}"
-				title="Select {document.title}"
-				class:list-item={view === 'list'}
-				class:grid-item={view === 'grid'}
-			>
-				<div class="block" class:sm:hidden={view === 'grid'}>
-					<DocumentIcon />
-				</div>
-				<h2 class:list-item-title={view === 'list'} class:grid-item-title={view === 'grid'}>
-					{document.title}
-				</h2>
-				<p class:list-item-body={view === 'list'} class:grid-item-body={view === 'grid'}>
-					{#if document.body.length > 100}
-						{document.body.slice(0, 100)}...
-					{:else}
-						{document.body}
-					{/if}
-				</p>
-			</a>
-		{/each}
+		{#if !data.documents || (data.documents && data.documents.length === 0)}
+			<p class="text-lg font-medium text-center">No documents found</p>
+		{:else}
+			{#each sortedDocuments as document}
+				<a
+					href="/documents/{document.id}"
+					title="Select {document.title}"
+					class:list-item={view === 'list'}
+					class:grid-item={view === 'grid'}
+				>
+					<div class="block" class:sm:hidden={view === 'grid'}>
+						<DocumentIcon />
+					</div>
+					<h2 class:list-item-title={view === 'list'} class:grid-item-title={view === 'grid'}>
+						{document.title}
+					</h2>
+					<p class:list-item-body={view === 'list'} class:grid-item-body={view === 'grid'}>
+						{#if document.body.length > 100}
+							{document.body.slice(0, 100)}...
+						{:else}
+							{document.body}
+						{/if}
+					</p>
+				</a>
+			{/each}
+		{/if}
 	</section>
 </div>
 
