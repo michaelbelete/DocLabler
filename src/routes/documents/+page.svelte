@@ -78,7 +78,7 @@
 	</section>
 
 	<section class:list-container={view === 'list'} class:grid-container={view === 'grid'}>
-		{#each sortedDocuments as document, i}
+		{#each sortedDocuments as document}
 			<a
 				href="/documents/{document.id}"
 				title="Select {document.title}"

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.css';
+	import { ToastContainer, FlatToast } from 'svelte-toasts';
 </script>
 
 <svelte:head>
@@ -11,6 +12,10 @@
 	/>
 	<meta name="author" content="Michael Belete" />
 </svelte:head>
+
+<ToastContainer let:data>
+	<FlatToast {data} />
+</ToastContainer>
 
 <slot />
 
