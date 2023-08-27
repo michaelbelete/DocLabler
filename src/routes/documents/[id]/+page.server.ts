@@ -1,5 +1,4 @@
 import { error } from '@sveltejs/kit';
-import { documents } from '$lib/mock/document';
 import type { PageServerLoad } from './$types';
 import { db } from '$lib/db.server';
 

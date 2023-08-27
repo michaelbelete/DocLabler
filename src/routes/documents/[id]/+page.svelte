@@ -1,16 +1,98 @@
 <script lang="ts">
 	import SparkIcon from '$lib/icons/SparkIcon.svelte';
+	import { visitorId } from '$lib/stores/visitorId';
+	import type { GetLabelInput, LabelInput, Response } from '$lib/types';
+	import type { Label } from '@prisma/client';
 	import type { PageData } from './$types';
+	import { toasts } from 'svelte-toasts';
 
 	export let data: PageData;
 
+	let label = '',
+		isLoading = false,
+		error: string | undefined = undefined;
 	$: document = data.document;
 
-	const handleSubmit = (event: Event) => {
-		event.preventDefault();
-		const formData = new FormData(event.target as HTMLFormElement);
-		console.log(Object.fromEntries(formData));
+	const fetchLabels = async () => {
+		if (!$visitorId) return;
+		isLoading = true;
+
+		const requestInput: GetLabelInput = {
+			documentId: document.id,
+			visitorId: $visitorId
+		};
+
+		try {
+			const response = await fetch('/api/get-label', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(requestInput)
+			});
+
+			if (response.ok) {
+				// Handle success if needed
+				const responseData: Response<Label> = await response.json();
+				label = responseData.data.label;
+			} else {
+				error = 'Unexpected Error Occured. Please try again';
+			}
+		} catch (error) {
+			error = `Unexpected Error Occured. Please try again. Detail: ${error}`;
+		}
+
+		isLoading = false;
 	};
+
+	const handleUpsertLabel = async () => {
+		if (!$visitorId) return;
+		isLoading = true;
+		error = undefined;
+
+		if (!label) {
+			error = 'Label is required';
+			isLoading = false;
+			return;
+		}
+
+		const newLabel: LabelInput = {
+			label,
+			visitorId: $visitorId,
+			documentId: document.id
+		};
+
+		try {
+			const response = await fetch('/api/upsert-label', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(newLabel)
+			});
+
+			if (response.ok) {
+				// Handle success if needed
+				const responseData: Response<Label> = await response.json();
+				toasts.success({
+					title: 'Success',
+					description: responseData.message,
+					placement: 'top-right'
+				});
+				label = responseData.data.label;
+			} else {
+				error = 'Unexpected Error Occured. Please try again';
+			}
+		} catch (error) {
+			error = `Unexpected Error Occured. Please try again. Detail: ${error}`;
+		}
+
+		isLoading = false;
+	};
+
+	$: if ($visitorId) {
+		fetchLabels();
+	}
 </script>
 
 <div class="flex flex-col gap-12">
@@ -85,7 +167,7 @@
 		<p>{document.body}</p>
 	</div>
 	<div class="bg-white bottom-0 w-full py-8 px-4 rounded-t-md shadow-sm">
-		<form class="max-w-xl mx-auto flex flex-col gap-4" method="post" on:submit={handleSubmit}>
+		<div class="max-w-xl mx-auto flex flex-col gap-4">
 			<div>
 				<div class="flex flex-row justify-between">
 					<label for="label" class="block text-sm sm:text-lg font-medium leading-6 text-gray-900"
@@ -102,13 +184,26 @@
 						type="label"
 						name="label"
 						id="label"
-						class="block w-full rounded-md border-0 py-3 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-primary text-sm sm:text-lg sm:leading-6"
+						bind:value={label}
+						class="block w-full rounded-md border-0 py-3 px-3 text-gray-900 shadow-sm ring-1 ring-gray-300 placeholder:text-gray-400 focus:ring-primary text-sm sm:text-lg sm:leading-6"
+						class:ring-primary={error}
+						class:ring-2={error}
 						placeholder="What will you label this document?"
-						required
+						disabled={isLoading}
 					/>
 				</div>
+				{#if error}
+					<p class="text-sm text-red-600 mt-1">{error}</p>
+				{/if}
 			</div>
-			<button type="submit" class="btn-primary">Submit</button>
-		</form>
+			<button
+				type="submit"
+				class="btn-primary disabled:brightness-75"
+				class:animate-pulse={isLoading}
+				on:click={handleUpsertLabel}
+				disabled={isLoading}
+				>{#if isLoading} Submitting {:else} Submit {/if}</button
+			>
+		</div>
 	</div>
 </div>
